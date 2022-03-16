@@ -67,6 +67,22 @@ $scheduleArray = array(
             '2' => 'Крипта',
             '3' => 'ПОБМС',
             '4' => 'Физра'
+        ),
+        '4' => array(
+            '1' => 'Флатер',
+            '2' => 'Интернет',
+            '3' => 'ПОБМС'
+        ),
+        '5' => array(
+            '1' => 'Право',
+            '2' => 'Сервера',
+            '3' => 'Крипта'
+        ),
+        '6' => array(
+            '1' => 'Первой пары нет',
+            '2' => 'Физра',
+            '3' => 'Безопасность',
+            '4' => 'Безопасность'
         )
     ),
 
@@ -74,11 +90,33 @@ $scheduleArray = array(
         '1' => array(
             '1' => 'Сервера',
             '2' => 'Флатер',
-            '3' => 'Право'
+            '3' => 'ПОБМС'
         ),
         '2' => array(
-            '1' => 'Крипта',
+            '1' => 'ПОБМС',
             '2' => 'Интернет'
+        ),
+        '3' => array(
+            '1' => 'Первой пары нету',
+            '2' => 'Крипта',
+            '3' => 'ПОБМС',
+            '4' => 'Физра'
+        ),
+        '4' => array(
+            '1' => 'Флатер',
+            '2' => 'Интернет',
+            '3' => 'ПОБМС'
+        ),
+        '5' => array(
+            '1' => 'Право',
+            '2' => 'Сервера',
+            '3' => 'Крипта'
+        ),
+        '6' => array(
+            '1' => 'Первой пары нет',
+            '2' => 'Физра',
+            '3' => 'Безопасность',
+            '4' => 'Безопасность'
         )
     )
 );
@@ -89,14 +127,16 @@ $weekNumber = 0;
 $dayNumber = 0;
 $pairNumber = 0;
 
-$startDate = strtotime("13 March 2022");
+$startDate = strtotime("14 March 2022");
 
 $now = strtotime("now");
 
+echo "сейчас - ".$now."<br>";
+
 $difference = $now - $startDate;
-
-$dayNumber = ($difference / 60 / 60 /24) % 7;
-
+echo "сейчас - ".$difference."<br>";
+$dayNumber = ceil($difference / 60 / 60 /24);
+echo "день - ".$dayNumber."<br>";
 
 if (round($difference / 60 / 60 /24 / 7) % 2 === 0)
     $weekNumber = 1;
@@ -157,7 +197,7 @@ file_put_contents('message.txt', 'message: '.$message."\n", FILE_APPEND);
 
 
 switch ($message) {
-    case 'пара':
+    case 'что сейчас?':
         $method = 'sendMessage';
         $send_data = [
             'text' => $text,
@@ -323,7 +363,7 @@ switch ($message) {
                 'keyboard' => [
                     [
                         ['text' => 'Расписание'],
-                        ['text' => 'Пара'],
+                        ['text' => 'Что сейчас?'],
                     ]
                 ]
             ]
