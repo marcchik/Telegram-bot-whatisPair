@@ -63,7 +63,7 @@ $scheduleArray = array(
             '2' => 'Интернет'
         ),
         '3' => array(
-            '1' => 'Пары нету',
+            '1' => 'Первой пары нету',
             '2' => 'Крипта',
             '3' => 'ПОБМС',
             '4' => 'Физра'
@@ -157,7 +157,7 @@ file_put_contents('message.txt', 'message: '.$message."\n", FILE_APPEND);
 
 
 switch ($message) {
-    case 'да':
+    case 'пара':
         $method = 'sendMessage';
         $send_data = [
             'text' => $text,
@@ -186,7 +186,7 @@ switch ($message) {
             ]
         ];
         break;
-    case 'Первая':
+    case 'первая':
         $method = 'sendMessage';
         $send_data = [
             'text' => "Какой сейчас день недели?",
@@ -196,7 +196,9 @@ switch ($message) {
                     [
                         ['text' => 'Понедельник'],
                         ['text' => 'Вторник'],
-                        ['text' => 'Среда'],
+                        ['text' => 'Среда']
+                    ],
+                    [
                         ['text' => 'Четверг'],
                         ['text' => 'Пятница'],
                         ['text' => 'Суббота']
@@ -206,7 +208,7 @@ switch ($message) {
         ];
         break;
 
-    case 'Вторая':
+    case 'вторая':
         $method = 'sendMessage';
         $send_data = [
             'text' => "Какой сейчас день недели?",
@@ -214,34 +216,121 @@ switch ($message) {
                 'resize_keyboard' => true,
                 'keyboard' => [
                     [
-                        ['text' => 'Понедельник'],
-                        ['text' => 'Вторник'],
-                        ['text' => 'Среда'],
-                        ['text' => 'Четверг'],
-                        ['text' => 'Пятница'],
-                        ['text' => 'Суббота']
+                        ['text' => 'Понедельник2'],
+                        ['text' => 'Вторник2'],
+                        ['text' => 'Среда2']
+                    ],
+                    [
+                        ['text' => 'Четверг2'],
+                        ['text' => 'Пятница2'],
+                        ['text' => 'Суббота2']
                     ]
                 ]
             ]
         ];
         break;
 
+    case 'понедельник':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. 08:00 - 09:20 Сервера\n2. 9:35 - 10:55 Флатер\n3. 11:25 - 12:45 ПОБМС",
+        ];
+        break;
 
+    case 'вторник':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. 08:00 - 09:20 ПОБМС\n2. 9:35 - 10:55 Интернет",
+        ];
+        break;
+
+    case 'среда':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. 08:00 - 09:20 -\n2. 9:35 - 10:55 Крипта\n3. 11:25 - 12:45 ПОБМС\n4. 13:00 - 14:20 Физра",
+        ];
+        break;
+
+    case 'четверг':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. 08:00 - 09:20 Флатер\n2. 9:35 - 10:55 Интернет\n3. 11:25 - 12:45 ПОБМС",
+        ];
+        break;
+
+    case 'пятница':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. 08:00 - 09:20 Право\n2. 9:35 - 10:55 Сервера\n3. 11:25 - 12:45 Крипта",
+        ];
+        break;
+
+    case 'суббота':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. 08:00 - 09:20 -\n2. 9:35 - 10:55 Физра\n3. 11:25 - 12:45 Безопасность\n4. 13:00 - 14:20 Безопасность",
+        ];
+        break;
+
+    case 'понедельник2':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. 08:00 - 09:20 Сервера\n2. 9:35 - 10:55 Флатер\n3. 11:25 - 12:45 Право",
+        ];
+        break;
+
+    case 'вторник2':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. 08:00 - 09:20 Крипта\n2. 9:35 - 10:55 Интернет",
+        ];
+        break;
+
+    case 'среда2':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. 08:00 - 09:20 -\n2. 9:35 - 10:55 Крипта\n3. 11:25 - 12:45 ПОБМС\n4. 13:00 - 14:20 Физра",
+        ];
+        break;
+
+    case 'четверг2':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. 08:00 - 09:20 Флатер\n2. 9:35 - 10:55 Интернет\n3. 11:25 - 12:45 ПОБМС",
+        ];
+        break;
+
+    case 'пятница2':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. 08:00 - 09:20 Право\n2. 9:35 - 10:55 Сервера\n3. 11:25 - 12:45 Крипта",
+        ];
+        break;
+
+    case 'суббота2':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. 08:00 - 09:20 -\n2. 9:35 - 10:55 Физра\n3. 11:25 - 12:45 Безопасность\n4. 13:00 - 14:20 Безопасность",
+        ];
+        break;
 
     default:
         $method = 'sendMessage';
         $send_data = [
-            'text' => 'Вы хотиете узнать какая у вас пара???',
+            'text' => 'Что вы хотите узнать?',
             'reply_markup'  => [
                 'resize_keyboard' => true,
                 'keyboard' => [
                     [
-                        ['text' => 'расписание'],
-                        ['text' => 'Какая сейчас пара'],
+                        ['text' => 'Расписание'],
+                        ['text' => 'Пара'],
                     ]
                 ]
             ]
         ];
+
+
+
 }
 
 $send_data['chat_id'] = $data['chat'] ['id'];
