@@ -1,5 +1,3 @@
-
-
 <?php
 date_default_timezone_set( 'Russia/Moscow' );
 $callTime = array(
@@ -205,7 +203,7 @@ switch ($message) {
                 'resize_keyboard' => true,
                 'keyboard' => [
                     [
-                        ['text' => '/start'],
+                        ['text' => 'Вернуться'],
                     ]
                 ]
             ]
@@ -221,6 +219,40 @@ switch ($message) {
                     [
                         ['text' => 'Первая'],
                         ['text' => 'Вторая'],
+                    ],
+                    [
+                        ['text' => ($weekNumber == 1) ? "Выбрать текущую неделю (первая)" : "Выбрать текущую неделю (вторая)"]
+                    ],
+                    [
+                        ['text' => 'Вернуться']
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case 'на завтра':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. ".$scheduleArray[$weekNumber][$dayNumber + 1][1]."\n2. ".$scheduleArray[$weekNumber][$dayNumber + 1][2]."\n3. ".$scheduleArray[$weekNumber][$dayNumber + 1][3]."\n4. ".$scheduleArray[$weekNumber][$dayNumber + 1][4],
+            'reply_markup'  => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Вернуться']
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case 'сегодня':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "1. ".$scheduleArray[$weekNumber][$dayNumber][1]."\n2. ".$scheduleArray[$weekNumber][$dayNumber][2]."\n3. ".$scheduleArray[$weekNumber][$dayNumber ][3]."\n4. ".$scheduleArray[$weekNumber][$dayNumber][4],
+            'reply_markup'  => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Вернуться']
                     ]
                 ]
             ]
@@ -242,6 +274,33 @@ switch ($message) {
                         ['text' => 'Четверг'],
                         ['text' => 'Пятница'],
                         ['text' => 'Суббота']
+                    ],
+                    [
+                        ['text' => 'Вернуться']
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case 'выбрать текущую неделю (первая)':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "Какой сейчас день недели?",
+            'reply_markup'  => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Понедельник'],
+                        ['text' => 'Вторник'],
+                        ['text' => 'Среда']
+                    ],
+                    [
+                        ['text' => 'Четверг'],
+                        ['text' => 'Пятница'],
+                        ['text' => 'Суббота']
+                    ],
+                    [
+                        ['text' => 'Вернуться']
                     ]
                 ]
             ]
@@ -256,14 +315,41 @@ switch ($message) {
                 'resize_keyboard' => true,
                 'keyboard' => [
                     [
-                        ['text' => 'Понедельник2'],
-                        ['text' => 'Вторник2'],
-                        ['text' => 'Среда2']
+                        ['text' => 'Понедельник.'],
+                        ['text' => 'Вторник.'],
+                        ['text' => 'Среда.']
                     ],
                     [
-                        ['text' => 'Четверг2'],
-                        ['text' => 'Пятница2'],
-                        ['text' => 'Суббота2']
+                        ['text' => 'Четверг.'],
+                        ['text' => 'Пятница.'],
+                        ['text' => 'Суббота.']
+                    ],
+                    [
+                        ['text' => 'Вернуться']
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case 'выбрать текущую неделю (втоорая)':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "Какой сейчас день недели?",
+            'reply_markup'  => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Понедельник.'],
+                        ['text' => 'Вторник.'],
+                        ['text' => 'Среда.']
+                    ],
+                    [
+                        ['text' => 'Четверг.'],
+                        ['text' => 'Пятница.'],
+                        ['text' => 'Суббота.']
+                    ],
+                    [
+                        ['text' => 'Вернуться']
                     ]
                 ]
             ]
@@ -277,6 +363,7 @@ switch ($message) {
         ];
         break;
 
+
     case 'вторник':
         $method = 'sendMessage';
         $send_data = [
@@ -287,7 +374,7 @@ switch ($message) {
     case 'среда':
         $method = 'sendMessage';
         $send_data = [
-            'text' => "1. 08:00 - 09:20 -\n2. 9:35 - 10:55 Крипта\n3. 11:25 - 12:45 ПОБМС\n4. 13:00 - 14:20 Физра",
+            'text' => "1. 08:00 - 09:20 - нету пары\n2. 9:35 - 10:55 Крипта\n3. 11:25 - 12:45 ПОБМС\n4. 13:00 - 14:20 Физра",
         ];
         break;
 
@@ -308,49 +395,49 @@ switch ($message) {
     case 'суббота':
         $method = 'sendMessage';
         $send_data = [
-            'text' => "1. 08:00 - 09:20 -\n2. 9:35 - 10:55 Физра\n3. 11:25 - 12:45 Безопасность\n4. 13:00 - 14:20 Безопасность",
+            'text' => "1. 08:00 - 09:20 - нету пары\n2. 9:35 - 10:55 Физра\n3. 11:25 - 12:45 Безопасность\n4. 13:00 - 14:20 Безопасность",
         ];
         break;
 
-    case 'понедельник2':
+    case 'понедельник.':
         $method = 'sendMessage';
         $send_data = [
             'text' => "1. 08:00 - 09:20 Сервера\n2. 9:35 - 10:55 Флатер\n3. 11:25 - 12:45 Право",
         ];
         break;
 
-    case 'вторник2':
+    case 'вторник.':
         $method = 'sendMessage';
         $send_data = [
             'text' => "1. 08:00 - 09:20 Крипта\n2. 9:35 - 10:55 Интернет",
         ];
         break;
 
-    case 'среда2':
+    case 'среда.':
         $method = 'sendMessage';
         $send_data = [
-            'text' => "1. 08:00 - 09:20 -\n2. 9:35 - 10:55 Крипта\n3. 11:25 - 12:45 ПОБМС\n4. 13:00 - 14:20 Физра",
+            'text' => "1. 08:00 - 09:20 - нету пары\n2. 9:35 - 10:55 Крипта\n3. 11:25 - 12:45 ПОБМС\n4. 13:00 - 14:20 Физра",
         ];
         break;
 
-    case 'четверг2':
+    case 'четверг.':
         $method = 'sendMessage';
         $send_data = [
             'text' => "1. 08:00 - 09:20 Флатер\n2. 9:35 - 10:55 Интернет\n3. 11:25 - 12:45 ПОБМС",
         ];
         break;
 
-    case 'пятница2':
+    case 'пятница.':
         $method = 'sendMessage';
         $send_data = [
             'text' => "1. 08:00 - 09:20 Право\n2. 9:35 - 10:55 Сервера\n3. 11:25 - 12:45 Крипта",
         ];
         break;
 
-    case 'суббота2':
+    case 'суббота.':
         $method = 'sendMessage';
         $send_data = [
-            'text' => "1. 08:00 - 09:20 -\n2. 9:35 - 10:55 Физра\n3. 11:25 - 12:45 Безопасность\n4. 13:00 - 14:20 Безопасность",
+            'text' => "1. 08:00 - 09:20 - нету пары\n2. 9:35 - 10:55 Физра\n3. 11:25 - 12:45 Безопасность\n4. 13:00 - 14:20 Безопасность",
         ];
         break;
 
@@ -363,7 +450,11 @@ switch ($message) {
                 'keyboard' => [
                     [
                         ['text' => 'Расписание'],
-                        ['text' => 'Что сейчас?'],
+                        ['text' => 'Что сейчас?']
+                    ],
+                    [
+                        ['text' => 'На завтра'],
+                        ['text' => 'Сегодня'],
                     ]
                 ]
             ]
