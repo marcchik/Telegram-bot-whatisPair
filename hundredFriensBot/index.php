@@ -33,42 +33,80 @@ $currentUser[$id]['profile']['username'] = $data['from']['username'];
 $currentUser[$id]['chat']['id'] = $data['chat']['id'];
 $currentUser[$id]['chat']['type'] = $data['chat']['type'];
 
-
-// присоединяем нового пользователя к массиву со всеми пользователями
-$usersArray += $currentUser;
-
-// проверка на существование такого пользователя
-foreach ($usersArray as $key => $item) {
-    if (strcasecmp($usersArray, $currentUser[$id]['profile']['username']) == 0) {
-        return;
-    } else {
-        file_put_contents('USERS.json', json_encode($usersArray, JSON_UNESCAPED_UNICODE));
-    }
-}
-
-
-
-
-
-
-
-echo "<pre>";
-print_r($currentUser);
-echo "</pre><hr>";
-echo "<pre>";
-print_r($usersArray);
-echo "</pre>";
+$first_name = $data['from']['first_name'];
 
 switch ($message) {
-    case 'ничего':
+    case '/invite':
         $method = 'sendMessage';
         $send_data = [
-            'text' => 'Ну ладно, пока!',
+            'text' => "Отправь ссылку другу 
+t.me/hundredFriensBot?start=$id",
+            'reply_markup'  => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 't.me/hundredFriensBot'],
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case '/help':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "Привет, **$first_name**, вот команды, что я понимаю: 
+    /help - Список команд
+    /about - О нас
+    /invite - Пригласить друга
+             ",
             'reply_markup'  => [
                 'resize_keyboard' => true,
                 'keyboard' => [
                     [
                         ['text' => 'Пока!'],
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case '/about':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => 'hundredFriendsBot - бот, с помощью которого
+    Ты сможешь накопить на мечту!',
+            'reply_markup'  => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Понятно!'],
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case '/start':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => 'Теперь ты с нами!',
+            'reply_markup'  => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Ага!'],
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case 'отправь ссылку другу':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => 't.me/hundredFriensBot',
+            'reply_markup'  => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Спасибо!'],
                     ]
                 ]
             ]
@@ -92,12 +130,14 @@ switch ($message) {
 
 }
 
-$send_data['chat_id'] = $data['chat'] ['id'];
+$send_data['chat_id'] = $data['chat']['id'];
 
 $res = sendTelegram($method, $send_data);
 
 
-
+echo "<pre>";
+file_put_contents('data.json', json_encode($data, JSON_UNESCAPED_UNICODE));
+echo "</pre><hr>";
 
 function sendTelegram($method, $data, $headers = [])
 {
@@ -115,4 +155,32 @@ function sendTelegram($method, $data, $headers = [])
     return (json_decode($result, 1) ? json_decode($result, 1) : $result);
 }
 
+
+function sendAll($array, $message) {
+    foreach ($array as $item) {
+        echo "<pre>";
+        print_r($item['chat']['id']);
+        echo "</pre><hr>";
+
+        $send_data['chat_id'] = $item['chat']['id'];
+        $send_data['text'] = $message;
+
+        sendTelegram('sendMessage', $send_data);
+    }
+}
+
+//sendAll($usersArray, "Hi");
+
+
+
+if (strlen($currentUser[$id]['profile']['username']) > 1) {
+    // проверка на существование такого пользователя
+    foreach ($usersArray as $key => $item) {
+        if (strcasecmp($key, $currentUser[$id]['profile']['username']) == 0) {
+            return;
+        } else {
+            file_put_contents('USERS.json', json_encode($usersArray, JSON_UNESCAPED_UNICODE));
+        }
+    }
+}
 ?>
