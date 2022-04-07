@@ -7,6 +7,9 @@
     "chat": {
       "id": 469182552,
       "type": "private"
+    },
+    "wallet": {
+      "amount": 100
     }
   },
   "U3RlbGthMDc=": {
@@ -17,6 +20,9 @@
     "chat": {
       "id": 513024232,
       "type": "private"
+    },
+    "referral": {
+      "parent": "bWFyY2NoaWs="
     }
   }
 }

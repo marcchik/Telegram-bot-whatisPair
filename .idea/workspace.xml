@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7decb00a-3f9f-4e9a-acfe-a0a486770a56" name="Default" comment="init: add new bot">
+    <list default="true" id="7decb00a-3f9f-4e9a-acfe-a0a486770a56" name="Default" comment="feat: 100 bot add send all">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hundredFriensBot/USERS.json" beforeDir="false" afterPath="$PROJECT_DIR$/hundredFriensBot/USERS.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hundredFriensBot/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/hundredFriensBot/index.php" afterDir="false" />
@@ -160,7 +160,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1647384575461</updated>
-      <workItem from="1649340379524" duration="12563000" />
+      <workItem from="1649340379524" duration="16342000" />
     </task>
     <task id="LOCAL-00001" summary="init: add new bot">
       <created>1649348840386</created>
@@ -169,7 +169,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649348840386</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: 100 bot add send all">
+      <created>1649357581108</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1649357581108</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -226,7 +233,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="init: add new bot" />
-    <option name="LAST_COMMIT_MESSAGE" value="init: add new bot" />
+    <MESSAGE value="feat: 100 bot add send all" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 100 bot add send all" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/index.php">

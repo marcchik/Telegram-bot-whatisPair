@@ -9,6 +9,7 @@ $data = $data['callback_query'] ? $data['callback_query'] : $data['message'];
 //пишем в файл лог сообщений
 file_put_contents('file.txt', '$data: '.print_r($data, 1)."\n", FILE_APPEND);
 
+$command = ($data['text'] ? $data['text'] : $data['data']);
 // входное сообщение
 $message = mb_strtolower(($data['text'] ? $data['text'] : $data['data']),'utf-8');
 
@@ -35,17 +36,95 @@ $currentUser[$id]['chat']['type'] = $data['chat']['type'];
 
 $first_name = $data['from']['first_name'];
 
+$referral_id = '0';
+
+if (mb_substr($message, 0, 7) == "/start ") {
+    echo mb_substr($message, 0, 7)."<hr>";
+    $referral_id = mb_substr($command, 7);
+    echo $referral_id;
+    $message = '/referral';
+}
+
+$currentUser[$id]['referral']['parent'] = $referral_id;
+
 switch ($message) {
     case '/invite':
         $method = 'sendMessage';
         $send_data = [
             'text' => "Отправь ссылку другу 
 t.me/hundredFriensBot?start=$id",
-            'reply_markup'  => [
+            'reply_markup' => [
                 'resize_keyboard' => true,
                 'keyboard' => [
                     [
-                        ['text' => 't.me/hundredFriensBot'],
+                        ['text' => 'Вернуться'],
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case '/referral':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "Поздравляю! Теперь Вы с нами!",
+            'reply_markup' => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Ура'],
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case '/refillbalance':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "Введите сумму пополнения!",
+            'reply_markup' => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => '1'],
+                        ['text' => '10']
+                    ],
+                    [
+                        ['text' => '100'],
+                        ['text' => '1000']
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case 'пополнить кошелек':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "Введите сумму пополнения",
+            'reply_markup' => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => '1'],
+                        ['text' => '10']
+                    ],
+                    [
+                        ['text' => '100'],
+                        ['text' => '1000']
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case '/balance':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => "Ваш баланс! ".$usersArray[$id]['wallet']['amount']." #",
+            'reply_markup' => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Спасибо'],
+                        ['text' => 'Пополнить кошелек']
                     ]
                 ]
             ]
@@ -58,7 +137,8 @@ t.me/hundredFriensBot?start=$id",
     /help - Список команд
     /about - О нас
     /invite - Пригласить друга
-             ",
+    /balance - Мой баланс
+    /refillbalance - Пополнить баланс",
             'reply_markup'  => [
                 'resize_keyboard' => true,
                 'keyboard' => [
@@ -98,29 +178,26 @@ t.me/hundredFriensBot?start=$id",
             ]
         ];
         break;
-    case 'отправь ссылку другу':
-        $method = 'sendMessage';
-        $send_data = [
-            'text' => 't.me/hundredFriensBot',
-            'reply_markup'  => [
-                'resize_keyboard' => true,
-                'keyboard' => [
-                    [
-                        ['text' => 'Спасибо!'],
-                    ]
-                ]
-            ]
-        ];
-        break;
     default:
         $method = 'sendMessage';
+        file_put_contents('file2.txt', print_r($message, 1)."\n", FILE_APPEND);
+
         $send_data = [
             'text' => 'Что вы хотите узнать?',
             'reply_markup'  => [
                 'resize_keyboard' => true,
                 'keyboard' => [
                     [
-                        ['text' => 'Ничего'],
+                        ['text' => '/help'],
+                        ['text' => '/about']
+                    ],
+                    [
+                        ['text' => '/invite'],
+                        ['text' => '/balance']
+                    ],
+                    [
+                        ['text' => '/refillbalance'],
+                        ['text' => '/settings']
                     ]
                 ]
             ]
@@ -171,7 +248,7 @@ function sendAll($array, $message) {
 
 //sendAll($usersArray, "Hi");
 
-
+$usersArray += $currentUser;
 
 if (strlen($currentUser[$id]['profile']['username']) > 1) {
     // проверка на существование такого пользователя
