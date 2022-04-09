@@ -212,7 +212,8 @@ t.me/hundredFriensBot?start=$id",
     case '/help':
         $method = 'sendMessage';
         $send_data = [
-            'text' => "Привет, *$first_name*, вот команды, что я понимаю: 
+            'parse_mode' => 'HTML',
+            'text' => "Привет, <u><b>$first_name</b></u>, вот команды, что я понимаю: 
     /help - Список команд
     /about - О нас
     /invite - Пригласить друга

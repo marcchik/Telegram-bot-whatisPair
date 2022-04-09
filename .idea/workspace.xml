@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7decb00a-3f9f-4e9a-acfe-a0a486770a56" name="Default" comment="feat: add main commands">
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+    <list default="true" id="7decb00a-3f9f-4e9a-acfe-a0a486770a56" name="Default" comment="refactor: fix code - all in function">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hundredFriensBot/USERS.json" beforeDir="false" afterPath="$PROJECT_DIR$/hundredFriensBot/USERS.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hundredFriensBot/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/hundredFriensBot/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -164,7 +162,7 @@
       <option name="presentableId" value="Default" />
       <updated>1647384575461</updated>
       <workItem from="1649340379524" duration="21291000" />
-      <workItem from="1649424280918" duration="21531000" />
+      <workItem from="1649424280918" duration="22745000" />
     </task>
     <task id="LOCAL-00001" summary="init: add new bot">
       <created>1649348840386</created>
@@ -187,7 +185,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649366147904</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="refactor: fix code - all in function">
+      <created>1649536336864</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1649536336864</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -247,7 +252,8 @@
     <MESSAGE value="init: add new bot" />
     <MESSAGE value="feat: 100 bot add send all" />
     <MESSAGE value="feat: add main commands" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add main commands" />
+    <MESSAGE value="refactor: fix code - all in function" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor: fix code - all in function" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
