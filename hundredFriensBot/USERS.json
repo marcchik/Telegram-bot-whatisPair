@@ -8,8 +8,8 @@
       "id": 469182552,
       "type": "private"
     },
-    "wallet": {
-      "amount": 100
+    "referral": {
+      "parent": "0"
     }
   },
   "U3RlbGthMDc=": {
@@ -20,6 +20,68 @@
     "chat": {
       "id": 513024232,
       "type": "private"
+    },
+    "referral": {
+      "parent": "bWFyY2NoaWs="
+    },
+    "wallet": {
+      "amount": 1000
+    },
+    "games": {
+      "status": "search"
+    }
+  },
+  "WV9hX25fYV9z": {
+    "profile": {
+      "name": "Яна",
+      "username": "Y_a_n_a_s"
+    },
+    "chat": {
+      "id": 409074189,
+      "type": "private"
+    },
+    "referral": {
+      "parent": "bWFyY2NoaWs="
+    }
+  },
+  "bmFzdHlhbGln": {
+    "profile": {
+      "name": "Настя",
+      "username": "nastyalig"
+    },
+    "chat": {
+      "id": 540128566,
+      "type": "private"
+    },
+    "referral": {
+      "parent": "bWFyY2NoaWs="
+    }
+  },
+  "RGFzaGExXzhfMDI=": {
+    "profile": {
+      "name": "Дарья",
+      "username": "Dasha1_8_02"
+    },
+    "chat": {
+      "id": 880947548,
+      "type": "private"
+    },
+    "referral": {
+      "parent": "bWFyY2NoaWs="
+    }
+  },
+  "TXJHcmlsYW5k": {
+    "profile": {
+      "name": "Grisha",
+      "surname": "Bulgak",
+      "username": "MrGriland"
+    },
+    "chat": {
+      "id": 1103697634,
+      "type": "private"
+    },
+    "wallet": {
+      "amount": "0"
     },
     "referral": {
       "parent": "bWFyY2NoaWs="

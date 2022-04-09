@@ -1,51 +1,35 @@
 <?php
 define('TOKEN', '5059697070:AAHqA2OKPfTQt2YGnTz66W8irbyRmFq29Ow');
 
-// входной массив
-$data = json_decode(file_get_contents('php://input'), TRUE);
-
-$data = $data['callback_query'] ? $data['callback_query'] : $data['message'];
+$data = getData();
 
 //пишем в файл лог сообщений
 file_put_contents('file.txt', '$data: '.print_r($data, 1)."\n", FILE_APPEND);
 
 $command = ($data['text'] ? $data['text'] : $data['data']);
+
 // входное сообщение
 $message = mb_strtolower(($data['text'] ? $data['text'] : $data['data']),'utf-8');
 
-// массив вошедших пользователей
-$usersArray = array();
-
-// получаем данные из JSON файла
-$ourData = file_get_contents("USERS.json");
-
-// Преобразуем в массив
-$usersArray = json_decode($ourData, true);
-
-
-$currentUser = array();
+$usersArray = getUsers('USERS');
 
 // id пользователя в кодировке
 $id = base64_encode($data['from']['username']);
 
-// сгенерированный массив нового пользователя
-$currentUser[$id]['profile']['name'] = $data['from']['first_name'];
-$currentUser[$id]['profile']['username'] = $data['from']['username'];
-$currentUser[$id]['chat']['id'] = $data['chat']['id'];
-$currentUser[$id]['chat']['type'] = $data['chat']['type'];
+$currentUser = getCurrentUser($id, $data);
 
 $first_name = $data['from']['first_name'];
+$chat_id = $data['chat']['id'];
 
-$referral_id = '0';
+$referral_id = 'bWFyY2NoaWs=';
+
 
 if (mb_substr($message, 0, 7) == "/start ") {
-    echo mb_substr($message, 0, 7)."<hr>";
     $referral_id = mb_substr($command, 7);
-    echo $referral_id;
     $message = '/referral';
 }
 
-$currentUser[$id]['referral']['parent'] = $referral_id;
+
 
 switch ($message) {
     case '/invite':
@@ -65,8 +49,102 @@ t.me/hundredFriensBot?start=$id",
         break;
     case '/referral':
         $method = 'sendMessage';
+
+        $currentUser = setReferralID($referral_id, $currentUser, $id);
+
+        adUser($id, $usersArray, $currentUser);
         $send_data = [
             'text' => "Поздравляю! Теперь Вы с нами!",
+            'reply_markup' => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Ура'],
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case '/play_rpc':
+        $method = 'sendMessage';
+        playRPC($id, $chat_id, $usersArray);
+        $send_data = [
+            'text' => "Игра начнется через 3️⃣!",
+            'reply_markup' => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Закончить игру'],
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case 'закончить игру':
+        $method = 'sendMessage';
+        endRPC($id, $chat_id, $usersArray);
+        $send_data = [
+            'text' => "Игра окончена",
+            'reply_markup' => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Назад'],
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case '1🍒':
+        $method = 'sendMessage';
+        refillBalance(1, $id, $usersArray);
+        $send_data = [
+            'text' => "Вы успешно пополнили свой баланс!",
+            'reply_markup' => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Ура'],
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case '10🍒':
+        $method = 'sendMessage';
+        refillBalance(10, $id, $usersArray);
+        $send_data = [
+            'text' => "Вы успешно пополнили свой баланс!",
+            'reply_markup' => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Ура'],
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case '100🍒':
+        $method = 'sendMessage';
+        refillBalance(100, $id, $usersArray);
+        $send_data = [
+            'text' => "Вы успешно пополнили свой баланс!",
+            'reply_markup' => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Ура'],
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case '1000🍒':
+        $method = 'sendMessage';
+        refillBalance(1000, $id, $usersArray);
+        $send_data = [
+            'text' => "Вы успешно пополнили свой баланс!",
             'reply_markup' => [
                 'resize_keyboard' => true,
                 'keyboard' => [
@@ -85,12 +163,12 @@ t.me/hundredFriensBot?start=$id",
                 'resize_keyboard' => true,
                 'keyboard' => [
                     [
-                        ['text' => '1'],
-                        ['text' => '10']
+                        ['text' => '1🍒'],
+                        ['text' => '10🍒']
                     ],
                     [
-                        ['text' => '100'],
-                        ['text' => '1000']
+                        ['text' => '100м🍒'],
+                        ['text' => '1000🍒']
                     ]
                 ]
             ]
@@ -104,12 +182,12 @@ t.me/hundredFriensBot?start=$id",
                 'resize_keyboard' => true,
                 'keyboard' => [
                     [
-                        ['text' => '1'],
-                        ['text' => '10']
+                        ['text' => '1🍒'],
+                        ['text' => '10🍒']
                     ],
                     [
-                        ['text' => '100'],
-                        ['text' => '1000']
+                        ['text' => '100🍒'],
+                        ['text' => '1000🍒']
                     ]
                 ]
             ]
@@ -117,8 +195,9 @@ t.me/hundredFriensBot?start=$id",
         break;
     case '/balance':
         $method = 'sendMessage';
+        $amount = isset($usersArray[$id]['wallet']['amount']) ? $usersArray[$id]['wallet']['amount'] : "0";
         $send_data = [
-            'text' => "Ваш баланс! ".$usersArray[$id]['wallet']['amount']." #",
+            'text' => "Ваш баланс - ".$amount."🍒",
             'reply_markup' => [
                 'resize_keyboard' => true,
                 'keyboard' => [
@@ -133,7 +212,7 @@ t.me/hundredFriensBot?start=$id",
     case '/help':
         $method = 'sendMessage';
         $send_data = [
-            'text' => "Привет, **$first_name**, вот команды, что я понимаю: 
+            'text' => "Привет, *$first_name*, вот команды, что я понимаю: 
     /help - Список команд
     /about - О нас
     /invite - Пригласить друга
@@ -164,8 +243,24 @@ t.me/hundredFriensBot?start=$id",
             ]
         ];
         break;
+    case '/myreferrals':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => 'Всего '.listReferral($id, $chat_id, $usersArray),
+            'reply_markup'  => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Понятно!'],
+                    ]
+                ]
+            ]
+        ];
+        break;
     case '/start':
         $method = 'sendMessage';
+
+        adUser($id, $usersArray, $currentUser);
         $send_data = [
             'text' => 'Теперь ты с нами!',
             'reply_markup'  => [
@@ -180,8 +275,6 @@ t.me/hundredFriensBot?start=$id",
         break;
     default:
         $method = 'sendMessage';
-        file_put_contents('file2.txt', print_r($message, 1)."\n", FILE_APPEND);
-
         $send_data = [
             'text' => 'Что вы хотите узнать?',
             'reply_markup'  => [
@@ -207,14 +300,13 @@ t.me/hundredFriensBot?start=$id",
 
 }
 
+
+
 $send_data['chat_id'] = $data['chat']['id'];
 
 $res = sendTelegram($method, $send_data);
 
 
-echo "<pre>";
-file_put_contents('data.json', json_encode($data, JSON_UNESCAPED_UNICODE));
-echo "</pre><hr>";
 
 function sendTelegram($method, $data, $headers = [])
 {
@@ -232,7 +324,6 @@ function sendTelegram($method, $data, $headers = [])
     return (json_decode($result, 1) ? json_decode($result, 1) : $result);
 }
 
-
 function sendAll($array, $message) {
     foreach ($array as $item) {
         echo "<pre>";
@@ -246,18 +337,148 @@ function sendAll($array, $message) {
     }
 }
 
-//sendAll($usersArray, "Hi");
+function refillBalance($amount, $id, $array) {
+    $array[$id]['wallet']['amount'] += $amount;
+    file_put_contents('USERS.json', json_encode($array, JSON_UNESCAPED_UNICODE));
+}
 
-$usersArray += $currentUser;
+function listReferral($id, $chat_id, $users) {
 
-if (strlen($currentUser[$id]['profile']['username']) > 1) {
-    // проверка на существование такого пользователя
-    foreach ($usersArray as $key => $item) {
-        if (strcasecmp($key, $currentUser[$id]['profile']['username']) == 0) {
-            return;
-        } else {
+    $send_data = [
+        'text' => 'Список ваших рефералов',
+        'chat_id' => $chat_id
+    ];
+
+    $count = 0;
+    sendTelegram('sendMessage', $send_data);
+
+    foreach ($users as $key => $item) {
+        if (strcasecmp($id, $item['referral']['parent']) == 0) {
+            $referral = "\n".($count + 1).") ".$item['profile']['name']." (".$item['profile']['username'].")";
+            $send_data['text'] = $send_data['text'].$referral;
+            $count++;
+        }
+    }
+    sendTelegram('sendMessage', $send_data);
+
+    return $count;
+}
+
+function playRPC($id, $chat_id, $users) {
+
+    $users[$id]['games']['status'] = 'search';
+
+    file_put_contents('USERS.json', json_encode($users, JSON_UNESCAPED_UNICODE));
+
+    $send_data = [
+        'text' => 'Список активных игроков',
+        'chat_id' => $chat_id
+    ];
+
+    sendTelegram('sendMessage', $send_data);
+
+    foreach ($users as $key => $item) {
+        if (strcasecmp('search', $item['games']['status']) == 0 && $key != $id) {
+            $send_data['text'] = "Ваш соперник -  ".$item['profile']['name']." (".$item['profile']['username'].")";
+            sendTelegram('sendMessage', $send_data);
+
+            $send_data = [
+                'text' => 'Ваш соперник - '.$users[$id]['profile']['name']." (".$users[$id]['profile']['username'].")",
+                'chat_id' => $item['chat']['id']
+            ];
+            sendTelegram('sendMessage', $send_data);
+            break;
+        }
+    }
+}
+
+function endRPC($id, $chat_id, $users) {
+
+    $users[$id]['games']['status'] = 'end';
+
+    file_put_contents('USERS.json', json_encode($users, JSON_UNESCAPED_UNICODE));
+
+}
+
+function adUser($id, $usersArray, $currentUser) {
+
+    if (strlen($currentUser[$id]['profile']['username']) > 1) {
+        $count = 0;
+        file_put_contents('usersArray.txt', '$data: '.print_r($usersArray, 1)."\n", FILE_APPEND);
+
+        // проверка на существование такого пользователя
+        foreach ($usersArray as $key => $item) {
+            $t[1][1] = $key;
+            $t[1][2] = $id;
+            file_put_contents('file2.txt', '$data: '.print_r($t, 1)."\n", FILE_APPEND);
+
+            if (strcasecmp($key, $id) == 0) {
+                return;
+            } else {
+                $count++;
+            }
+        }
+
+        $t[1][1] = $count;
+        $t[1][2] = count($usersArray);
+        file_put_contents('file3.txt', '$data: '.print_r($t, 1)."\n", FILE_APPEND);
+
+        if ($count == count($usersArray)) {
+            $usersArray = array_merge($usersArray, $currentUser);
+            file_put_contents('$currentUser.txt', '$data: '.print_r($currentUser, 1)."\n", FILE_APPEND);
+
             file_put_contents('USERS.json', json_encode($usersArray, JSON_UNESCAPED_UNICODE));
         }
     }
+}
+
+function changeInfo($id, $newdata) {
+    // получаем данные из JSON файла
+    $ourData = file_get_contents("USERS.json");
+
+    // Преобразуем в массив
+    $usersArray = json_decode($ourData, true);
+
+    $new = array();
+
+    $new[$id]['wallet']['amount'] = $newdata;
+
+    $usersArray[$id]['wallet']['amount'] = $new[$id]['wallet']['amount'];
+
+    file_put_contents('USERS22.json', json_encode($usersArray, JSON_UNESCAPED_UNICODE));
+}
+
+function getData() {
+
+    $data = json_decode(file_get_contents('php://input'), TRUE);
+
+    return $data['callback_query'] ? $data['callback_query'] : $data['message'];
+}
+
+function getUsers($fileName) {
+    // получаем данные из JSON файла
+    $ourData = file_get_contents("$fileName.json");
+
+    // Преобразуем в массив
+    return json_decode($ourData, true);
+}
+
+function getCurrentUser($id, $data) {
+    // сгенерированный массив нового пользователя
+    $currentUser[$id]['profile']['name'] = $data['from']['first_name'];
+    $currentUser[$id]['profile']['surname'] = $data['from']['last_name'];
+    $currentUser[$id]['profile']['username'] = $data['from']['username'];
+    $currentUser[$id]['chat']['id'] = $data['chat']['id'];
+    $currentUser[$id]['chat']['type'] = $data['chat']['type'];
+    $currentUser[$id]['wallet']['amount'] = '0';
+    $currentUser[$id]['referral']['parent'] = 'bWFyY2NoaWs=';
+
+    return $currentUser;
+}
+
+function setReferralID($referralID, $currentUser, $id) {
+    $currentUser[$id]['referral']['parent'] = $referralID;
+
+    return $currentUser;
 }
 ?>
