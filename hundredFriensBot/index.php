@@ -1,5 +1,6 @@
 <?php
 define('TOKEN', '5059697070:AAHqA2OKPfTQt2YGnTz66W8irbyRmFq29Ow');
+include "./function/index.php";
 
 $data = getData();
 
@@ -29,7 +30,7 @@ if (mb_substr($message, 0, 7) == "/start ") {
     $message = '/referral';
 }
 
-
+echo isConnect();
 
 switch ($message) {
     case '/invite':
@@ -55,6 +56,22 @@ t.me/hundredFriensBot?start=$id",
         adUser($id, $usersArray, $currentUser);
         $send_data = [
             'text' => "Поздравляю! Теперь Вы с нами!",
+            'reply_markup' => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Ура'],
+                    ]
+                ]
+            ]
+        ];
+        break;
+    case 'ad':
+        $method = 'sendMessage';
+
+        adUserDB(createCurrentUser($data));
+        $send_data = [
+            'text' => "Добавлен",
             'reply_markup' => [
                 'resize_keyboard' => true,
                 'keyboard' => [
@@ -401,37 +418,7 @@ function endRPC($id, $chat_id, $users) {
 
 }
 
-function adUser($id, $usersArray, $currentUser) {
 
-    if (strlen($currentUser[$id]['profile']['username']) > 1) {
-        $count = 0;
-        file_put_contents('usersArray.txt', '$data: '.print_r($usersArray, 1)."\n", FILE_APPEND);
-
-        // проверка на существование такого пользователя
-        foreach ($usersArray as $key => $item) {
-            $t[1][1] = $key;
-            $t[1][2] = $id;
-            file_put_contents('file2.txt', '$data: '.print_r($t, 1)."\n", FILE_APPEND);
-
-            if (strcasecmp($key, $id) == 0) {
-                return;
-            } else {
-                $count++;
-            }
-        }
-
-        $t[1][1] = $count;
-        $t[1][2] = count($usersArray);
-        file_put_contents('file3.txt', '$data: '.print_r($t, 1)."\n", FILE_APPEND);
-
-        if ($count == count($usersArray)) {
-            $usersArray = array_merge($usersArray, $currentUser);
-            file_put_contents('$currentUser.txt', '$data: '.print_r($currentUser, 1)."\n", FILE_APPEND);
-
-            file_put_contents('USERS.json', json_encode($usersArray, JSON_UNESCAPED_UNICODE));
-        }
-    }
-}
 
 function changeInfo($id, $newdata) {
     // получаем данные из JSON файла
