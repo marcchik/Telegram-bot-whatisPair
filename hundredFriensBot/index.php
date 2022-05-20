@@ -291,6 +291,20 @@ t.me/hundredFriensBot?start=$id",
             ]
         ];
         break;
+    case '/profile':
+        $method = 'sendMessage';
+        $send_data = [
+            'text' => 'Ваш профиль - '.getInfoUser($id),
+            'reply_markup'  => [
+                'resize_keyboard' => true,
+                'keyboard' => [
+                    [
+                        ['text' => 'Спасибо!'],
+                    ]
+                ]
+            ]
+        ];
+        break;
     default:
         $method = 'sendMessage';
         $send_data = [
@@ -308,7 +322,7 @@ t.me/hundredFriensBot?start=$id",
                     ],
                     [
                         ['text' => '/refillbalance'],
-                        ['text' => '/settings']
+                        ['text' => '/profile']
                     ]
                 ]
             ]
@@ -416,6 +430,15 @@ function endRPC($id, $chat_id, $users) {
 
     file_put_contents('USERS.json', json_encode($users, JSON_UNESCAPED_UNICODE));
 
+}
+
+function getInfoUser($id) {
+    // получаем данные из JSON файла
+    $ourData = file_get_contents("USERS.json");
+    $res = json_decode($ourData, true)[$id];
+    // Преобразуем в массив
+    return "Имя - ".$res['profile']['name']."\n".
+        "Логин - ";
 }
 
 

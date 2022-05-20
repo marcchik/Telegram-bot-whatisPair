@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7decb00a-3f9f-4e9a-acfe-a0a486770a56" name="Default" comment="feat: bolt text on message">
-      <change afterPath="$PROJECT_DIR$/hundredFriensBot/function/adUser/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hundredFriensBot/function/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hundredFriensBot/function/infoDB/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hundredFriensBot/function/isConnect/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hundredFriensBot/function/method/adUser/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/hundredFriensBot/function/method/index.php" afterDir="false" />
+    <list default="true" id="7decb00a-3f9f-4e9a-acfe-a0a486770a56" name="Default" comment="feat: new function">
+      <change afterPath="$PROJECT_DIR$/hundredFriensBot/function/addUser/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hundredFriensBot/function/adUser/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/hundredFriensBot/function/getUser/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hundredFriensBot/function/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/hundredFriensBot/function/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hundredFriensBot/function/infoDB/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/hundredFriensBot/function/infoDB/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/hundredFriensBot/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/hundredFriensBot/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -124,7 +122,7 @@
     <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
     <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/hundredFriensBot/function" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../study/3к2с/KP/WEB" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="options.lastSelected" value="settings.github" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -172,7 +170,8 @@
       <workItem from="1649424280918" duration="22861000" />
       <workItem from="1649658595871" duration="27000" />
       <workItem from="1652793709796" duration="7149000" />
-      <workItem from="1652888686837" duration="6468000" />
+      <workItem from="1652888686837" duration="9896000" />
+      <workItem from="1652987080642" duration="4670000" />
     </task>
     <task id="LOCAL-00001" summary="init: add new bot">
       <created>1649348840386</created>
@@ -209,7 +208,14 @@
       <option name="project" value="LOCAL" />
       <updated>1649537627758</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: new function">
+      <created>1652965663054</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1652965663054</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -271,7 +277,8 @@
     <MESSAGE value="feat: add main commands" />
     <MESSAGE value="refactor: fix code - all in function" />
     <MESSAGE value="feat: bolt text on message" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: bolt text on message" />
+    <MESSAGE value="feat: new function" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: new function" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
